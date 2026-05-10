@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refik Abduro — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2744;
+      --navy-deep: #111d36;
+      --navy-mid: #243354;
+      --blue: #2d6be4;
+      --blue-light: #4f85f0;
+      --sky: #e8f0fe;
+      --white: #ffffff;
+      --off-white: #f7f9fc;
+      --text: #1e2a3a;
+      --text-mid: #4a5568;
+      --text-muted: #718096;
+      --border: #d6e0f0;
+      --border-light: #eaf0fb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      align-items: center;
+      gap: 4rem;
+      padding: 7rem 3rem 4rem;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, var(--navy-mid) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(45,107,228,0.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-left { position: relative; z-index: 2; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(45,107,228,0.2);
+      border: 1px solid rgba(79,133,240,0.3);
+      color: #93b8f8;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.8rem;
+    }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 span { color: #93b8f8; font-style: italic; }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.8rem 1.8rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(45,107,228,0.35);
+    }
+
+    .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+    .btn-ghost {
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.85);
+      padding: 0.8rem 1.8rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-wrap { position: relative; width: 300px; }
+
+    .photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border: 2px solid rgba(79,133,240,0.4);
+      border-radius: 6px;
+      transform: rotate(2deg);
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      border-radius: 4px;
+      display: block;
+      position: relative;
+      z-index: 1;
+      object-fit: cover;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      filter: contrast(1.04);
+    }
+
+    /* SECTIONS */
+    section { padding: 5.5rem 3rem; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 3.5rem;
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--off-white); }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:first-of-type { border-top: 1px solid var(--border); }
+
+    .exp-company { font-weight: 600; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.3rem; }
+
+    .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .exp-loc { font-size: 0.78rem; color: var(--text-muted); }
+
+    .exp-role { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .exp-bullets li {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 0.65rem;
+      top: 0.35rem;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--white); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--blue-light));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover { box-shadow: 0 8px 30px rgba(26,39,68,0.1); transform: translateY(-3px); border-color: var(--blue-light); }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-desc { font-size: 0.875rem; line-height: 1.75; color: var(--text-mid); margin-bottom: 1.4rem; }
+
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+
+    .tech-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      padding: 0.25rem 0.65rem;
+      background: var(--sky);
+      color: var(--blue);
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--blue);
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover { gap: 0.6rem; }
+
+    /* SKILLS */
+    #skills { background: var(--off-white); }
+
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+    .skill-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-list { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-row { display: flex; flex-direction: column; gap: 0.4rem; }
+    .skill-name { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+
+    .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--navy), var(--blue-light));
+      border-radius: 2px;
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: fillBar 1.2s ease forwards;
+      animation-play-state: paused;
+    }
+
+    @keyframes fillBar { to { transform: scaleX(1); } }
+
+    .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .cert-dot { width: 10px; height: 10px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+
+    .cert-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+
+    .cert-issuer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+
+    /* EDUCATION */
+    #education { background: var(--navy); }
+
+    #education .section-label { color: #93b8f8; }
+    #education .section-title { color: var(--white); }
+
+    .edu-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .edu-school {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #93b8f8;
+      margin-bottom: 0.7rem;
+    }
+
+    .edu-degree {
+      font-family: 'Lora', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .edu-courses { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .edu-chip {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 3px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .edu-right { text-align: center; }
+
+    .gpa-num {
+      font-family: 'Lora', serif;
+      font-size: 3.5rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .gpa-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    .deans-badge {
+      margin-top: 1rem;
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #93b8f8;
+      border: 1px solid rgba(147,184,248,0.35);
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--off-white); text-align: center; }
+    #contact .section-title { margin-bottom: 0.75rem; }
+
+    .contact-sub { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+
+    .contact-grid { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    .contact-btn {
+      padding: 0.8rem 1.6rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .contact-btn.solid {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(45,107,228,0.25);
+    }
+
+    .contact-btn.solid:hover { background: var(--blue-light); transform: translateY(-2px); }
+
+    .contact-btn.outline {
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      background: var(--white);
+    }
+
+    .contact-btn.outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy-deep);
+      padding: 1.8rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name { font-family: 'Lora', serif; font-size: 1rem; color: rgba(255,255,255,0.65); }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--blue-light); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2.5rem; }
+      .hero-right { order: -1; }
+      .photo-wrap { width: 200px; }
+      section { padding: 4rem 1.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .edu-card { grid-template-columns: 1fr; }
+      .edu-right { text-align: left; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Refik Abduro</div>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left fade-up">
+      <div class="hero-tag">Business Analyst &nbsp;·&nbsp; MIS Graduate &nbsp;·&nbsp; Seattle, WA</div>
+      <h1>Hi, I'm<br><span>Refik Abduro</span></h1>
+      <p class="hero-desc">
+        I turn complex data into clear decisions. Currently at Amazon building AI-powered analytics that improve the seller experience — and running my own web development agency on the side.
+      </p>
+      <div class="hero-ctas">
+        <a href="mailto:abdurorefik@gmail.com" class="btn-primary">Get in Touch</a>
+        <a href="#projects" class="btn-ghost">See My Work</a>
+      </div>
+    </div>
+    <div class="hero-right fade-up">
+      <div class="photo-wrap">
+        <img src="MDM09473.jpg" alt="Refik Abduro" />
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="fade-up">
+      <div class="section-label">Work History</div>
+      <h2 class="section-title">Experience</h2>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-company">Amazon</div>
+        <div class="exp-period">Jan 2025 – Present</div>
+        <div class="exp-loc">Seattle, WA</div>
+      </div>
+      <div>
+        <div class="exp-role">Business Analyst — Product Analytics</div>
+        <ul class="exp-bullets">
+          <li>Partnered with Technical Product Managers on the Get Help team to design and measure automated, AI/LLM-driven solutions and workflows that improved the Selling Partner experience through CRM self-service tools.</li>
+          <li>Conducted A/B test evaluations and regression analysis, collaborating with Science teams on statistical methods and developing Python scripts to automate the Statistical Analysis process — leading to improved accuracy and efficiency.</li>
+          <li>Delivered insights that drove 300,000+ annual contact eliminations across several initiatives, generating $4.5M in cost savings and reducing average seller case handling time.</li>
+          <li>Built a centralized experimentation dashboard that consolidated organization-wide A/B test data with daily automated refresh, enabling PMs to independently monitor performance and accelerate product decisions.</li>
+          <li>Partnered with SDEs and Data Engineers to design and implement automated alarm systems that proactively detected data pipeline failures, improving data reliability and reducing incident resolution time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-company">Self-Employed</div>
+        <div class="exp-period">Jun 2025 – Present</div>
+        <div class="exp-loc">Seattle, WA</div>
+      </div>
+      <div>
+        <div class="exp-role">Web Development Agency Founder</div>
+        <ul class="exp-bullets">
+          <li>Founded and operated a web development agency serving 10–20 small and medium-sized businesses, managing end-to-end client relationships from initial consultation to site delivery.</li>
+          <li>Conducted in-depth discovery consultations with each client to identify business goals, target audiences, and pain points — translating insights into tailored website designs aligned with their brand.</li>
+          <li>Leveraged AI tools including Claude and GitHub Copilot to accelerate development workflows, cutting average site delivery time by 50% while maintaining high quality standards.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-meta">
+        <div class="exp-company">UW Bothell</div>
+        <div class="exp-period">Sep – Dec 2023</div>
+        <div class="exp-loc">Bothell, WA</div>
+      </div>
+      <div>
+        <div class="exp-role">Business Consultant Intern</div>
+        <ul class="exp-bullets">
+          <li>Led a project for Boeing, utilizing data-driven insights to define high-value customer segments within the airline industry.</li>
+          <li>Developed domestic and international airline partnerships with Asia Pacific-based carriers primarily flying long-haul routes to the USA for Alaska Airlines to compete with rivals like JetBlue, Delta, and American Airlines.</li>
+          <li>Conducted extensive competitor analysis to identify strategic opportunities, market gaps, and emerging trends.</li>
+          <li>Processed and cleaned 300 survey responses with Excel, deriving key insights to shape partnership strategies.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="fade-up">
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <div class="project-tag">Machine Learning · Sep 2025 – Jan 2026</div>
+        <div class="project-name">Sleep Disorder Predictor</div>
+        <p class="project-desc">
+          Developed a machine learning model to predict sleep disorders such as insomnia and sleep apnea using real-world lifestyle and clinical data. Combined and cleaned multiple public datasets to identify key predictors including stress level, BMI, and sleep duration. Applied XGBoost and SMOTE to improve accuracy and ensure balanced predictions across classes.
+        </p>
+        <div class="project-tech">
+          <span class="tech-chip">Python</span>
+          <span class="tech-chip">XGBoost</span>
+          <span class="tech-chip">SMOTE</span>
+          <span class="tech-chip">Feature Engineering</span>
+          <span class="tech-chip">Scikit-learn</span>
+        </div>
+        <a href="#" class="project-link">View Repo →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-tag">Data Analytics · Excel · SQL</div>
+        <div class="project-name">Bike Sharing Marketing Analysis</div>
+        <p class="project-desc">
+          Extracted and analyzed 8,000+ bike sharing user demographics from Kaggle, building an interactive Excel dashboard with pivot tables. Used SQL for extensive data cleaning, developing 3 targeted marketing strategies aimed at converting casual riders — improving conversion rates by 15%.
+        </p>
+        <div class="project-tech">
+          <span class="tech-chip">Excel</span>
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">Dashboard</span>
+          <span class="tech-chip">Pivot Tables</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-tag">Software Engineering · Java · SQL</div>
+        <div class="project-name">Inventory Management System</div>
+        <p class="project-desc">
+          Developed a Java-based inventory management system with seamless SQL database integration, optimizing inventory storage for an ecommerce business. Integrated a secure access key system for clients, enhancing security and providing controlled database access.
+        </p>
+        <div class="project-tech">
+          <span class="tech-chip">Java</span>
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">Security</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-tag">Analytics · R · SQL · Tableau</div>
+        <div class="project-name">Bellabeat Marketing Analytics</div>
+        <p class="project-desc">
+          Analyzed Fitbit data from 150 Kaggle users, uncovering key trends in smart device usage. Developed data-driven marketing strategies for Bellabeat by translating usage trends into actionable recommendations using R, SQL, and Tableau.
+        </p>
+        <div class="project-tech">
+          <span class="tech-chip">R</span>
+          <span class="tech-chip">SQL</span>
+          <span class="tech-chip">Tableau</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="fade-up">
+      <div class="section-label">What I Work With</div>
+      <h2 class="section-title">Skills & Certifications</h2>
+    </div>
+
+    <div class="skills-layout">
+      <div>
+        <div class="skill-group-label">Technical Skills</div>
+        <div class="skill-list">
+          <div class="skill-row fade-up">
+            <div class="skill-name">Python & SQL</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill-row fade-up">
+            <div class="skill-name">A/B Testing & Statistical Analysis</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-row fade-up">
+            <div class="skill-name">Excel & Data Cleaning</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-row fade-up">
+            <div class="skill-name">Tableau / Power BI</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+          </div>
+          <div class="skill-row fade-up">
+            <div class="skill-name">Machine Learning (XGBoost, Scikit-learn)</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:76%"></div></div>
+          </div>
+          <div class="skill-row fade-up">
+            <div class="skill-name">AWS (S3, Lambda, SageMaker)</div>
+            <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Certifications</div>
+        <div class="cert-list">
+          <div class="cert-item fade-up">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-name">AWS Cloud Practitioner</div>
+              <div class="cert-issuer">Amazon Web Services · 2025</div>
+            </div>
+          </div>
+          <div class="cert-item fade-up">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-name">Google Data Analytics Certificate</div>
+              <div class="cert-issuer">Google · 2023</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-group-label" style="margin-top:2.5rem">Domain Expertise</div>
+        <div class="tags-wrap">
+          <span class="tech-chip">Product Analytics</span>
+          <span class="tech-chip">ETL Pipelines</span>
+          <span class="tech-chip">A/B Testing</span>
+          <span class="tech-chip">Business Consulting</span>
+          <span class="tech-chip">CRM Tools</span>
+          <span class="tech-chip">Project Management</span>
+          <span class="tech-chip">Web Development</span>
+          <span class="tech-chip">Competitive Analysis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="fade-up">
+      <div class="section-label">Academic Background</div>
+      <h2 class="section-title">Education</h2>
+    </div>
+
+    <div class="edu-card fade-up">
+      <div>
+        <div class="edu-school">University of Washington</div>
+        <div class="edu-degree">Bachelor of Business Administration<br>Management Information Systems</div>
+        <div class="edu-courses">
+          <span class="edu-chip">Data Analytics</span>
+          <span class="edu-chip">Software Engineering</span>
+          <span class="edu-chip">Economics</span>
+          <span class="edu-chip">Project Management</span>
+          <span class="edu-chip">Consulting</span>
+        </div>
+      </div>
+      <div class="edu-right">
+        <div class="gpa-num">3.68</div>
+        <div class="gpa-label">GPA / 4.0</div>
+        <div class="deans-badge">Dean's List ×4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="fade-up">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Connect</h2>
+    </div>
+    <p class="contact-sub fade-up">Open to new opportunities, collaborations, and interesting conversations.</p>
+    <div class="contact-grid fade-up">
+      <a href="mailto:abdurorefik@gmail.com" class="contact-btn solid">abdurorefik@gmail.com</a>
+      <a href="https://www.linkedin.com/in/refik-abduro" target="_blank" class="contact-btn outline">LinkedIn</a>
+      <a href="https://github.com" target="_blank" class="contact-btn outline">GitHub</a>
+      <a href="tel:2065318577" class="contact-btn outline">206-531-8577</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Refik Abduro</div>
+    <div class="footer-copy">© 2026 · Seattle, WA</div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => entry.target.classList.add('visible'), Number(delay));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach((el, i) => {
+      el.dataset.delay = (i % 4) * 90;
+      observer.observe(el);
+    });
+
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-fill').forEach((fill, i) => {
+            fill.style.animationDelay = `${i * 0.1}s`;
+            fill.style.animationPlayState = 'running';
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.skill-list').forEach(el => {
+      el.querySelectorAll('.skill-fill').forEach(f => f.style.animationPlayState = 'paused');
+      barObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>
